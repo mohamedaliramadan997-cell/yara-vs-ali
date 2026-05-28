@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Yara vs Ali 💗</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!--  FLOATING PARTICLES BACKGROUND                             -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div id="particles-container"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!--  SCREEN 1: LANDING / HOME                                  -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="screen-landing" class="screen active">
+    <div class="landing-inner">
+      <div class="landing-badge">✦ A Game For Two ✦</div>
+      <h1 class="game-title">
+        <span class="title-yara">Yara</span>
+        <span class="title-vs">vs</span>
+        <span class="title-ali">Ali</span>
+      </h1>
+      <p class="landing-tagline">Truth. Dare. Chemistry.</p>
+      <p class="landing-sub">An intimate game designed to help two people discover each other, one reveal at a time.</p>
+      <button class="btn-primary pulse-glow" id="btn-start-landing">
+        <span>Begin the Game</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <div class="landing-divider">
+        <span>♥</span>
+        <span>♠</span>
+        <span>♥</span>
+      </div>
+      <p class="landing-note">No installs. No accounts. Just you two.</p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!--  SCREEN 2: PLAYER SETUP                                    -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="screen-setup" class="screen">
+    <div class="setup-inner">
+      <button class="btn-back" id="btn-back-setup">← Back</button>
+      <h2 class="section-title">Who's Playing?</h2>
+      <p class="section-sub">Confirm your names before the games begin</p>
+
+      <div class="players-grid">
+        <!-- Yara Card -->
+        <div class="player-setup-card yara-card">
+          <div class="player-avatar yara-avatar" id="yara-avatar-display">
+            <span class="avatar-emoji" id="yara-emoji">🌸</span>
+          </div>
+          <div class="avatar-picker" id="yara-avatar-picker">
+            <span data-emoji="🌸">🌸</span><span data-emoji="🌷">🌷</span>
+            <span data-emoji="💖">💖</span><span data-emoji="🦋">🦋</span>
+            <span data-emoji="🌺">🌺</span><span data-emoji="✨">✨</span>
+            <span data-emoji="🌙">🌙</span><span data-emoji="💎">💎</span>
+          </div>
+          <input type="text" class="player-name-input yara-input" id="yara-name-input" value="Yara" maxlength="12" />
+          <div class="player-label yara-label">Player 1</div>
+        </div>
+
+        <div class="vs-badge-setup">VS</div>
+
+        <!-- Ali Card -->
+        <div class="player-setup-card ali-card">
+          <div class="player-avatar ali-avatar" id="ali-avatar-display">
+            <span class="avatar-emoji" id="ali-emoji">⚡</span>
+          </div>
+          <div class="avatar-picker" id="ali-avatar-picker">
+            <span data-emoji="⚡">⚡</span><span data-emoji="🔥">🔥</span>
+            <span data-emoji="🦅">🦅</span><span data-emoji="🎯">🎯</span>
+            <span data-emoji="🌊">🌊</span><span data-emoji="🏆">🏆</span>
+            <span data-emoji="🎸">🎸</span><span data-emoji="🌑">🌑</span>
+          </div>
+          <input type="text" class="player-name-input ali-input" id="ali-name-input" value="Ali" maxlength="12" />
+          <div class="player-label ali-label">Player 2</div>
+        </div>
+      </div>
+
+      <!-- Starting Score -->
+      <div class="setup-note">💰 Each refused truth or dare = <strong>10 EGP</strong> penalty</div>
+
+      <button class="btn-primary" id="btn-start-game">
+        <span>Start the Game</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!--  SCREEN 3: GAME HUB (Main game screen)                    -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="screen-game" class="screen">
+    <!-- Top Bar -->
+    <div class="game-topbar">
+      <div class="topbar-player" id="topbar-yara">
+        <span class="topbar-emoji" id="topbar-yara-emoji">🌸</span>
+        <span class="topbar-name" id="topbar-yara-name">Yara</span>
+        <div class="topbar-penalty">
+          <span class="penalty-icon">💸</span>
+          <span id="yara-debt">0</span> EGP
+        </div>
+      </div>
+      <button class="topbar-score-btn" id="btn-scoreboard">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      </button>
+      <div class="topbar-player" id="topbar-ali">
+        <span class="topbar-name" id="topbar-ali-name">Ali</span>
+        <span class="topbar-emoji" id="topbar-ali-emoji">⚡</span>
+        <div class="topbar-penalty">
+          <span class="penalty-icon">💸</span>
+          <span id="ali-debt">0</span> EGP
+        </div>
+      </div>
+    </div>
+
+    <!-- Current Turn Banner -->
+    <div class="turn-banner" id="turn-banner">
+      <div class="turn-avatar" id="turn-avatar">🌸</div>
+      <div class="turn-info">
+        <div class="turn-label">It's your turn</div>
+        <div class="turn-name" id="turn-name">Yara</div>
+      </div>
+      <div class="turn-round">Round <span id="round-number">1</span></div>
+    </div>
+
+    <!-- Mode Selector -->
+    <div class="mode-selector">
+      <button class="mode-btn active" data-mode="random" id="mode-random">
+        <span class="mode-icon">🎲</span>
+        <span>Random</span>
+      </button>
+      <button class="mode-btn" data-mode="truth" id="mode-truth">
+        <span class="mode-icon">💬</span>
+        <span>Truth</span>
+      </button>
+      <button class="mode-btn" data-mode="dare" id="mode-dare">
+        <span class="mode-icon">🎯</span>
+        <span>Dare</span>
+      </button>
+    </div>
+
+    <!-- Card Area -->
+    <div class="card-area">
+      <div class="card-container" id="card-container">
+        <!-- Idle state -->
+        <div class="card idle-card" id="idle-card">
+          <div class="idle-card-inner">
+            <div class="idle-icon">🃏</div>
+            <p class="idle-text">Tap the button to draw your card</p>
+            <div class="idle-sparkles">✦ ✦ ✦</div>
+          </div>
+        </div>
+        <!-- Active card (shown after draw) -->
+        <div class="card active-card hidden" id="active-card">
+          <div class="card-type-badge" id="card-type-badge">TRUTH</div>
+          <div class="card-category" id="card-category">Childhood</div>
+          <p class="card-content" id="card-content">The question will appear here...</p>
+          <div class="card-number" id="card-number">#1</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Timer -->
+    <div class="timer-section" id="timer-section">
+      <div class="timer-ring">
+        <svg viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="42" class="timer-bg" />
+          <circle cx="50" cy="50" r="42" class="timer-fill" id="timer-ring-fill" />
+        </svg>
+        <span class="timer-text" id="timer-text">60</span>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="action-buttons" id="action-buttons">
+      <button class="btn-draw" id="btn-draw">
+        <span class="btn-draw-icon">✦</span>
+        <span>Draw Card</span>
+      </button>
+    </div>
+
+    <!-- Post-card Buttons (shown after draw) -->
+    <div class="post-card-buttons hidden" id="post-card-buttons">
+      <button class="btn-complete" id="btn-complete">
+        <span>✓ Done!</span>
+      </button>
+      <button class="btn-penalty" id="btn-penalty">
+        <span>✗ Skip (−10 EGP)</span>
+      </button>
+      <button class="btn-next" id="btn-next">
+        Next Turn →
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!--  OVERLAY: SCOREBOARD                                       -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="overlay hidden" id="overlay-scoreboard">
+    <div class="overlay-box scoreboard-box">
+      <button class="overlay-close" id="btn-close-scoreboard">✕</button>
+      <h3 class="overlay-title">🏆 Scoreboard</h3>
+      <div class="scoreboard-grid">
+        <div class="score-card yara-score-card">
+          <div class="score-avatar" id="score-yara-emoji">🌸</div>
+          <div class="score-name" id="score-yara-name">Yara</div>
+          <div class="score-stat">
+            <span>✓ Completed</span>
+            <strong id="yara-completed">0</strong>
+          </div>
+          <div class="score-stat">
+            <span>✗ Skipped</span>
+            <strong id="yara-skipped">0</strong>
+          </div>
+          <div class="score-debt-display">
+            <span>Total Owed</span>
+            <strong id="yara-debt-display">0 EGP</strong>
+          </div>
+        </div>
+        <div class="score-card ali-score-card">
+          <div class="score-avatar" id="score-ali-emoji">⚡</div>
+          <div class="score-name" id="score-ali-name">Ali</div>
+          <div class="score-stat">
+            <span>✓ Completed</span>
+            <strong id="ali-completed">0</strong>
+          </div>
+          <div class="score-stat">
+            <span>✗ Skipped</span>
+            <strong id="ali-skipped">0</strong>
+          </div>
+          <div class="score-debt-display">
+            <span>Total Owed</span>
+            <strong id="ali-debt-display">0 EGP</strong>
+          </div>
+        </div>
+      </div>
+      <div class="score-round-info">
+        Round <span id="score-round">1</span> · <span id="score-total-cards">0</span> cards played
+      </div>
+      <button class="btn-end-game" id="btn-end-game">End Game & See Results</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!--  OVERLAY: PENALTY POPUP                                    -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="overlay hidden" id="overlay-penalty">
+    <div class="overlay-box penalty-box">
+      <div class="penalty-animation">
+        <div class="penalty-emoji">💸</div>
+        <div class="penalty-sparks">
+          <span>✦</span><span>✦</span><span>✦</span><span>✦</span>
+        </div>
+      </div>
+      <h3 class="penalty-title">PENALTY!</h3>
+      <p class="penalty-message" id="penalty-message">Yara skipped their turn!</p>
+      <div class="penalty-amount">−10 EGP</div>
+      <p class="penalty-sub" id="penalty-sub-text">That's okay, it's still fun! 😄</p>
+      <button class="btn-primary" id="btn-dismiss-penalty">Got it!</button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!--  OVERLAY: TURN TRANSITION                                  -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <div class="overlay hidden" id="overlay-transition">
+    <div class="overlay-box transition-box">
+      <div class="transition-emoji" id="transition-emoji">🌸</div>
+      <h3 class="transition-title">Pass the Phone!</h3>
+      <p class="transition-message">It's now <strong id="transition-name">Yara's</strong> turn</p>
+      <p class="transition-hint">Hand the device to <span id="transition-name-2">Yara</span></p>
+      <button class="btn-primary transition-btn" id="btn-ready">
+        I'm Ready! ✓
+      </button>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <!--  SCREEN 4: RESULTS                                         -->
+  <!-- ═══════════════════════════════════════════════════════════ -->
+  <section id="screen-results" class="screen">
+    <div class="results-inner">
+      <div class="results-confetti" id="results-confetti"></div>
+      <div class="results-trophy">🏆</div>
+      <h2 class="results-title">Game Over!</h2>
+      <p class="results-sub">What a journey! Here's how it all went down:</p>
+
+      <div class="results-grid">
+        <div class="result-card yara-result" id="result-yara-card">
+          <div class="result-emoji" id="result-yara-emoji">🌸</div>
+          <div class="result-name" id="result-yara-name">Yara</div>
+          <div class="result-stats">
+            <div class="result-stat"><span>Cards Completed</span><strong id="res-yara-completed">0</strong></div>
+            <div class="result-stat"><span>Cards Skipped</span><strong id="res-yara-skipped">0</strong></div>
+            <div class="result-stat penalty-stat"><span>Total Debt</span><strong id="res-yara-debt">0 EGP</strong></div>
+          </div>
+        </div>
+        <div class="result-card ali-result" id="result-ali-card">
+          <div class="result-emoji" id="result-ali-emoji">⚡</div>
+          <div class="result-name" id="result-ali-name">Ali</div>
+          <div class="result-stats">
+            <div class="result-stat"><span>Cards Completed</span><strong id="res-ali-completed">0</strong></div>
+            <div class="result-stat"><span>Cards Skipped</span><strong id="res-ali-skipped">0</strong></div>
+            <div class="result-stat penalty-stat"><span>Total Debt</span><strong id="res-ali-debt">0 EGP</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="winner-banner" id="winner-banner">
+        <div class="winner-crown">👑</div>
+        <p class="winner-text" id="winner-text">The winner is...</p>
+        <div class="winner-name" id="winner-name">—</div>
+      </div>
+
+      <button class="btn-primary results-play-again" id="btn-play-again">
+        Play Again 🔄
+      </button>
+      <button class="btn-secondary" id="btn-back-home">Back to Home</button>
+    </div>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
