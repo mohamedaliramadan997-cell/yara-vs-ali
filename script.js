@@ -1257,7 +1257,7 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ── Dismiss penalty ── */
   $('btn-dismiss-penalty').addEventListener('click', () => {
     $('overlay-penalty').classList.add('hidden');
-    // If it was my skip, next turn happens already via actionSkip → advanceTurn (after delay)
+    advanceTurn();
   });
 
   /* ── Play again ── */
